@@ -29,7 +29,119 @@ Para ver la solución del problema visitar el link que contiene un repositorio d
 
 ---
 ***-> Proponer algoritmo de solución.***
+Aquí solo será superficial en el siguiente punto se explica a fondo, por practicidad se hara copy paste de partes del codigo.
 
+- Declarar matriz laberinto con sus respectivos muros, inicio y final
+    
+        laberinto = [ 
+        
+            ['1','1','1','1','1','1','1','1','1'],
+            
+            ['O',' ',' ',' ',' ',' ','1',' ','1'],
+            
+            ['1','1','1',' ','1','1','1',' ','1'],
+            
+            ['1',' ',' ',' ','1',' ','1',' ','1'],
+            
+            ['1',' ','1','1','1',' ','1',' ','1'],
+            
+            ['1',' ',' ',' ',' ',' ',' ',' ','1'],
+            
+            ['1',' ','1','1','1',' ','1',' ','1'],
+            
+            ['X',' ','1',' ',' ',' ','1',' ','1'],
+            
+            ['1','1','1','1','1','1','1','1','1']
+        ]
+
+- Declarar 2 variables para la posicion incial, fila y columna.
+
+        fila=1
+        columna=0
+
+- Crear 2 funciones mostrar_laberinto y resolver
+  - Mostrar laberinto tendrá 2 condiciones para imprimir el laberinto inicial o el resuelto.
+        
+        def mostrar_laberinto(laberinto):
+
+            if(m==0):
+                print("Laberinto inicial")
+                for fila in laberinto:
+                    for columna in fila:
+                        print(columna, end=' ')
+                    print(" ")
+            
+            elif(m==1):
+                print("Laberinto final")
+                for fila in laberinto:
+                    for columna in fila:
+                        print(columna, end=' ')
+                    print(" ")
+
+  - Resolver es la función primordial del programa
+        
+        def resolver(laberinto, fila, columna):
+            if laberinto[fila][columna] == 'X':
+                laberinto[fila][columna]='-'
+                return True
+
+            if laberinto[fila][columna] == '1' or laberinto[fila][columna] == 'v':
+                return False
+
+            laberinto[fila][columna] = 'v'
+
+            if ((fila > 0 and resolver(laberinto, fila - 1, columna)) or 
+                (columna < len(laberinto[fila]) - 1 and resolver(laberinto, fila, columna + 1)) or 
+                (fila < len(laberinto) - 1 and resolver(laberinto, fila + 1, columna)) or 
+                (columna > 0 and resolver(laberinto, fila, columna - 1))):
+
+                laberinto[fila][columna]='-'
+                return True
+
+            laberinto[fila][columna] = ' '
+            
+            return False
+
+- Llamar a las funciones de acuerdo a lo que se necesita y enviar variables necesarias en la llamada de cada una. entre estas modificar el contador para que imprima el laberinto resuelto
+  
+        mostrar_laberinto(laberinto)
+  
+        resolver(laberinto,fila,columna)
+        m=1
+  
+        mostrar_laberinto(laberinto)
 
 ---
 ***-> Describir punto anterior***
+
+ Creo que lo único que necesita una eplicación mas a fondo es la parte de resolver así que aqui la documentare:
+
+   - Resolver es la función primordial del programa
+        
+        def resolver(laberinto, fila, columna):
+    
+            # si estamos en el inicio agregamos el caracter '-' a la matriz y devolvemos true
+            if laberinto[fila][columna] == 'X':
+                laberinto[fila][columna]='-'
+                return True
+
+            # Si la posición actual es pared o ya pasamos por ahi, devolvemos False
+            if laberinto[fila][columna] == '1' or laberinto[fila][columna] == 'v':
+                return False
+
+            # cambiamos el valor por una 'v' de visitado
+            laberinto[fila][columna] = 'v'
+
+            # comprobar si podemos avanzar hacaia algun punto (arriba, derecha, abajo, izquierda)
+            if ((fila > 0 and resolver(laberinto, fila - 1, columna)) or 
+                (columna < len(laberinto[fila]) - 1 and resolver(laberinto, fila, columna + 1)) or 
+                (fila < len(laberinto) - 1 and resolver(laberinto, fila + 1, columna)) or 
+                (columna > 0 and resolver(laberinto, fila, columna - 1))):
+                # Si pudimos avanzar modificamos con el carcater '-' de que por ahi va el camino
+                laberinto[fila][columna]='-'
+                return True
+
+            # Si no se puede avanzar la dejamos vacia 
+            laberinto[fila][columna] = ' '
+            
+            return False
