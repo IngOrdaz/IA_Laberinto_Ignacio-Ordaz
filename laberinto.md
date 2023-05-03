@@ -27,6 +27,8 @@ De esta misma manera aplica en los problemas que decidas plantearte a resolver, 
 Para ver la solución del problema visitar el link que contiene un repositorio de github el alumno **Ignacio Alejandro Ordaz Estrada**
 [IA_Laberinto_Ignacio-Ordaz](https://github.com/IngOrdaz/IA_Laberinto_Ignacio-Ordaz "Repositorio en GitHub")
 
+<div style="page-break-before:always"></div>
+
 ---
 ***-> Proponer algoritmo de solución.***
 Aquí solo será superficial en el siguiente punto se explica a fondo, por practicidad se hara copy paste de partes del codigo.
@@ -57,7 +59,10 @@ Aquí solo será superficial en el siguiente punto se explica a fondo, por pract
 - Declarar 2 variables para la posicion incial, fila y columna.
 
         fila=1
+
         columna=0
+
+<div style="page-break-before:always"></div>
 
 - Crear 2 funciones mostrar_laberinto y resolver
   - Mostrar laberinto tendrá 2 condiciones para imprimir el laberinto inicial o el resuelto.
@@ -77,6 +82,7 @@ Aquí solo será superficial en el siguiente punto se explica a fondo, por pract
                     for columna in fila:
                         print(columna, end=' ')
                     print(" ")
+<div style="page-break-before:always"></div>
 
   - Resolver es la función primordial del programa
         
@@ -110,6 +116,8 @@ Aquí solo será superficial en el siguiente punto se explica a fondo, por pract
         m=1
   
         mostrar_laberinto(laberinto)
+
+<div style="page-break-before:always"></div>
 
 ---
 ***-> Describir punto anterior***
