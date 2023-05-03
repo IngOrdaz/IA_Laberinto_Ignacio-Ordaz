@@ -32,6 +32,8 @@ columna=0
 
 #FUNCIONES
 #---------------------------------------------------------------------------#
+
+#función para imprimir el laberito inicial y resuelto
 def mostrar_laberinto(laberinto):
     if(m==0):
         print("Laberinto inicial")
@@ -47,30 +49,33 @@ def mostrar_laberinto(laberinto):
                 print(columna, end=' ')
             print(" ")
 
+#funcion para resolver el laberinto
 def resolver(laberinto, fila, columna):
-    # Caso base: si estamos en la meta, añadir la posición actual al camino y devolver True
+    
+    # si estamos en el inicio agregamos el caracter '-' a la matriz y devolvemos true
     if laberinto[fila][columna] == 'X':
         laberinto[fila][columna]='-'
         return True
 
-    # Si la posición actual es un muro o ya la visitamos, devolver False
-    if laberinto[fila][columna] == '1' or laberinto[fila][columna] == '.':
+    # Si la posición actual es pared o ya pasamos por ahi, devolvemos False
+    if laberinto[fila][columna] == '1' or laberinto[fila][columna] == 'v':
         return False
 
-    # Marcar la posición actual como visitada
-    laberinto[fila][columna] = '.'
+    # cambiamos el valor por una 'v' de visitado
+    laberinto[fila][columna] = 'v'
 
-    # Verificar si podemos avanzar en alguna dirección (arriba, derecha, abajo, izquierda)
+    # comprobar si podemos avanzar hacaia algun punto (arriba, derecha, abajo, izquierda)
     if ((fila > 0 and resolver(laberinto, fila - 1, columna)) or 
         (columna < len(laberinto[fila]) - 1 and resolver(laberinto, fila, columna + 1)) or 
         (fila < len(laberinto) - 1 and resolver(laberinto, fila + 1, columna)) or 
         (columna > 0 and resolver(laberinto, fila, columna - 1))):
-        # Si pudimos avanzar en alguna dirección, añadir la posición actual al camino
+        # Si pudimos avanzar modificamos con el carcater '-' de que por ahi va el camino
         laberinto[fila][columna]='-'
         return True
 
-    # Si no pudimos avanzar en ninguna dirección, desmarcar la posición actual y devolver False
+    # Si no se puede avanzar la dejamos vacia 
     laberinto[fila][columna] = ' '
+    
     return False
 
 #MAIN
